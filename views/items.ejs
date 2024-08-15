@@ -4,6 +4,9 @@
     <title>Inventory Application</title>
   </head>
   <body>
+    <nav>
+      <a href="/">Go to home</a>
+    </nav>
     <div>Items</div>
 
     <div>
@@ -13,6 +16,13 @@
         <h3><%= item.name %></h3>
         <p><%= item.description %></p>
         <p>Price: $<%= item.price %></p>
+        <form
+          action="/items/delete/<%= item._id %>/<%= item.categoryId %>"
+          method="POST"
+          style="display: inline"
+        >
+          <button type="submit">Delete</button>
+        </form>
       </div>
       <% }) %> <% } else { %>
       <p>No items available.</p>

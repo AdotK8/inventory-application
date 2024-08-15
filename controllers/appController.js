@@ -16,7 +16,7 @@ exports.addCategory = async (req, res) => {
     const category = new Category(req.body);
     await category.save();
 
-    res.status(201).send(category);
+    res.redirect("/");
   } catch (error) {
     res.status(400).send("Error creating category: " + error.message);
   }
@@ -45,6 +45,16 @@ exports.getItems = async (req, res) => {
   }
 };
 
-exports.getManage = async (req, res) => {
-  res.render("manage");
+exports.deleteItem = async (req, res) => {
+  const { id, categoryId } = req.params;
+  await Item.findByIdAndDelete(id);
+  res.redirect(`/items/${categoryId}`);
+};
+
+exports.deleteCategory = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  await Category.findByIdAndDelete(id);
+  await Item.deleteMany({ categoryId: id });
+  res.redirect(`/`);
 };
