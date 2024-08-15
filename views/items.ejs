@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inventory Application</title>
+  </head>
+  <body>
+    <div>Items</div>
+
+    <div>
+      <% if (categoryItems && categoryItems.length > 0) { %> <%
+      categoryItems.forEach((item) => { %>
+      <div>
+        <h3><%= item.name %></h3>
+        <p><%= item.description %></p>
+        <p>Price: $<%= item.price %></p>
+      </div>
+      <% }) %> <% } else { %>
+      <p>No items available.</p>
+      <% } %>
+    </div>
+
+    <hr />
+
+    <div>
+      <h2>Add a New Item</h2>
+      <form action="/items/add" method="POST">
+        <div>
+          <label for="name">Item Name:</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div>
+          <label for="price">Price:</label>
+          <input type="number" id="price" name="price" min="0" required />
+        </div>
+
+        <input type="hidden" name="categoryId" value="<%= categoryId %>" />
+
+        <button type="submit">Add Item</button>
+      </form>
+    </div>
+  </body>
+</html>
